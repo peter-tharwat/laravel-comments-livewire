@@ -1,0 +1,638 @@
+:root {
+    --comments-spacing: 2.5rem;
+    --comments-avatar-size: 1.5rem;
+    --comments-avatar-margin: 0.35rem;
+    --comments-border-radius: 0.3rem;
+    --comments-z-modal: 2;
+
+    /* colors */
+    --comments-color-background: white;
+    --comments-color-background-nested: white;
+    --comments-color-background-paper: rgb(249, 250, 251);
+    --comments-color-background-info: rgb(237, 235, 252);
+
+    --comments-color-reaction: rgb(238, 239, 240);
+    --comments-color-reaction-hover: rgb(229, 231, 235);
+    --comments-color-reacted: rgba(67, 56, 202, 0.2);
+    --comments-color-reacted-hover: rgba(67, 56, 202, 0.35);
+
+    --comments-color-border: rgb(221, 221, 221);
+
+    --comments-color-text:rgb(17, 24, 39);
+    --comments-color-text-dimmed: rgb(156, 163, 175);
+    --comments-color-text-inverse: white;
+
+    --comments-color-accent: rgba(67, 56, 202);
+    --comments-color-accent-hover: rgba(67, 56, 202, 0.8);
+
+    --comments-color-danger: rgb(225, 29, 72);
+    --comments-color-danger-hover: rgb(225, 29, 72, 0.8);
+
+    --comments-color-success: rgb(10, 200, 134);
+    --comments-color-success-hover: rgb(10, 200, 134, 0.8);
+
+    --comments-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+@media (min-width: 768px) {
+    :root {
+        --comments-avatar-size: 2.5rem;
+        --comments-avatar-margin: 0.75rem;
+    }
+}
+
+.comments {
+    color: var(--comments-color-text);
+}
+
+.comments-avatar {
+    width: var(--comments-avatar-size);
+    height: var(--comments-avatar-size);
+    border-radius: var(--comments-avatar-size);
+    margin-right: var(--comments-avatar-margin);
+}
+
+/** Added to win agains Tailwind CDN specificity */
+.comments-button.comments-button {
+    border-radius: var(--comments-border-radius);
+    color: var(--comments-color-text-inverse);
+    background-color: var(--comments-color-accent);
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+    transition: background 150ms;
+}
+
+.comments-button:hover {
+    background-color: var(--comments-color-accent-hover);
+}
+
+.comments-button.is-small {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.comments-button.is-link {
+    background-color: transparent;
+    color: var(--comments-color-text-dimmed);
+    text-decoration: underline;
+}
+
+.comments-button.is-danger {
+    background-color: var(--comments-color-danger);
+}
+
+.comments-button.is-danger:hover {
+    background-color: var(--comments-color-danger-hover);
+}
+
+.comments-button.is-success {
+    background-color: var(--comments-color-success);
+}
+
+.comments-button.is-success:hover {
+    background-color: var(--comments-color-success-hover);
+}
+
+.comments-button svg {
+    stroke: var(--comments-color-text-inverse);
+}
+
+.comments-comment {
+    display: flex;
+}
+
+.comments-nested .comments-comment{
+    background-color: var(--comments-color-background-nested);
+    padding: 0;
+}
+
+.comments-comment-inner {
+    flex-grow: 1;
+}
+
+.comments-comment-header {
+    position: relative;
+    font-weight: 500;
+    color: var(--comments-color-text);
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .comments-comment-header {
+        display: flex;
+        align-items: baseline;
+    }
+}
+
+.comments-comment-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--comments-color-text-dimmed);
+    font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+    .comments-comment-header-actions {
+        margin-left: 0.5rem;
+    }
+}
+
+.comments-comment-header-actions li {
+    display: flex;
+    position: relative;
+}
+
+.comments-comment-header-actions li:not(:last-child):after {
+    content: "•";
+    margin: 0 0.25rem;
+}
+
+.comments-comment-header-actions li > a:hover,
+.comments-comment-header-actions li > button:hover {
+    text-decoration: underline;
+}
+
+.comments-comment-header-copied {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    color: var(--comments-color-success);
+}
+
+.comments-error {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--comments-color-danger);
+}
+
+.comments-form {
+    display: flex;
+    position: relative;
+}
+
+.comments-form-inner {
+    flex-grow: 1;
+}
+
+.comments-form-inner button {
+    margin-top: 0.5rem;
+}
+
+.comments-form-editor-tip {
+    color: var(--comments-color-text-dimmed);
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+    text-align: right;
+}
+
+.comments-form-editor-tip a {
+    text-decoration: underline;
+}
+
+.comments-newest-first > .comments-form {
+    margin-bottom: var(--comments-spacing);
+}
+
+.comments-group {
+    position: relative;
+    padding-bottom: var(--comments-spacing);
+    margin-bottom: var(--comments-spacing);
+}
+
+.comments-group:target {
+    margin-top: calc(-1 * var(--comments-spacing));
+    margin-left: calc(-0.5 * var(--comments-spacing));
+    margin-right: calc(-0.5 * var(--comments-spacing));
+    padding-top: var(--comments-spacing);
+    padding-left: calc(0.5 * var(--comments-spacing));
+    padding-right: calc(0.5 * var(--comments-spacing));
+    animation: highlight 1.5s ease-in-out;
+    border: solid 1px var(--comments-color-accent);
+    border-radius: var(--comments-border-radius);
+}
+
+@keyframes highlight {
+    0% {
+        transform: scale(1);
+    }
+    5% {
+        transform: scale(1);
+    }
+    15% {
+        transform: scaleX(1.015);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.comments-group:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid var(--comments-color-border);
+}
+
+.comments-group.comments-group-with-avatars:after {
+    /* Offset the border to stay lined up with the avatar */
+    left: calc(var(--comments-avatar-size) + var(--comments-avatar-margin));
+}
+
+.comments-group .comments-group {
+    padding-bottom: 0;
+    margin-top: calc(var(--comments-spacing) * 0.66);
+    margin-bottom: 0;
+}
+
+.comments-group .comments-group:after {
+    content: none;
+}
+
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--comments-spacing);
+}
+
+.comments-header strong {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.comments-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    stroke: var(--comments-color-text);
+}
+
+.comments-approval {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background-color: var( --comments-color-background-info);
+    border-radius: var(--comments-border-radius);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.comments-approval-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.comments-modal {
+    position: absolute;
+    z-index: var(--comments-z-modal);
+    color: var(--comments-color-text);
+    font-size: 1rem;
+    background-color: var( --comments-color-background);
+    box-shadow: var( --comments-shadow);
+    border-radius: var(--comments-border-radius);
+    top: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+.comments-modal.is-left {
+    right: auto;
+    left: 0;
+}
+
+.comments-modal.is-bottom {
+    top: 100%;
+}
+
+.comments-modal.is-compact {
+    padding: 0.5rem;
+}
+
+.comments-modal-title {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.comments-modal-contents {
+    font-weight: normal;
+    line-height: 1.25;
+}
+
+.comments-modal-contents p {
+    margin-bottom: 0.5rem;
+    min-width: 8rem;
+}
+
+@media (min-width: 768px) {
+    .comments-modal-contents p {
+        min-width: 12rem;
+    }
+}
+
+.comments-modal-contents .comments-button {
+    float: right;
+}
+
+.comments-nested {
+    margin-top: calc(var(--comments-spacing) * 0.66);
+    padding-left: calc(var(--comments-avatar-size) + var(--comments-avatar-margin));
+}
+
+.comments-no-comment-yet {
+    text-align: center;
+    margin: 2rem 0 4rem 0;
+    color: var(--comments-color-text-dimmed);
+}
+
+.comments-placeholder,
+.comments-textarea {
+    border: 1px solid var(--comments-color-border);
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+    height: var(--comments-avatar-size);
+}
+
+.comments-placeholder:focus {
+    outline: none;
+}
+
+.comments-reactions {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.comments-reaction {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: var(--comments-border-radius);
+    cursor: pointer;
+    background-color: var(--comments-color-reaction);
+    padding: 0 0.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+    transition: background 150ms;
+}
+
+.comments-reaction:hover {
+    background-color: var(--comments-color-reaction-hover);
+}
+
+.comments-reaction.is-reacted {
+    border: 1px solid var(--comments-color-accent);
+    background-color: var(--comments-color-reacted);
+}
+
+.comments-reaction.is-reacted:hover {
+    background-color: var(--comments-color-reacted-hover);
+}
+
+.comments-reaction-picker {
+    position: relative;
+}
+
+/** Added to win agains Tailwind CDN specificity */
+.comments-reaction-picker-trigger.comments-reaction-picker-trigger {
+    display: flex;
+    align-items: center;
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    border-radius: var(--comments-border-radius);
+    background-color: var(--comments-color-reaction);
+    transition: background 150ms;
+}
+
+.comments-reaction-picker-trigger:hover {
+    background-color: var(--comments-color-reaction-hover);
+}
+
+.comments-reaction-picker-reactions {
+    display: grid;
+    gap: 0.25rem;
+}
+
+@media (min-width: 480px) {
+    .comments-reaction-picker-reactions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .comments-reaction-picker-reactions {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+.comments-reaction-picker-reaction {
+    height: 1.75rem;
+    padding: 0 0.25rem;
+    border-radius: var(--comments-border-radius);
+    cursor: pointer;
+    transition: background 150ms;
+}
+
+.comments-reaction-picker-reaction:hover {
+    background-color: var(--comments-color-reaction);
+}
+
+.comments-reaction-picker-reaction.is-reacted {
+    background-color: var(--comments-color-reacted);
+}
+
+.comments-reaction-picker-reaction.is-reacted:hover {
+    background-color: var(--comments-color-reacted-hover);
+}
+
+.comments-reply {
+    margin-top: calc(var(--comments-spacing) * 0.66);
+}
+
+.comments-subscription {
+    position: relative;
+    margin-left: auto;
+    font-size: 0.8rem;
+}
+
+.comments-subscription-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--comments-border-radius);
+    background-color: var(--comments-color-reaction);
+    font-weight: 600;
+    transition: background 150ms;
+}
+
+.comments-subscription-trigger:hover {
+    background-color: var(--comments-color-reaction-hover);
+}
+
+.comments-subscription-item {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    border-radius: var(--comments-border-radius);
+    transition: background 150ms;
+}
+
+.comments-subscription-item:hover {
+    background-color: var(--comments-color-reaction);
+}
+
+.comment-text {
+    max-width: calc(100% - var(--comments-avatar-size));
+}
+
+.comment-text > *,
+.comments-comment-inner {
+    max-width: 100%;
+}
+
+.comment-text code {
+    padding: 0.2rem 0.5rem;
+    background-color: var(--comments-color-background-paper);
+    border-radius: 0.3rem;
+}
+
+.comment-text .shiki {
+    font-size: 0.85rem;
+}
+
+.comment-text .shiki code {
+    padding: 0;
+    background-color: transparent;
+}
+
+.comment-text .shiki {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 0.2rem;
+    background-color: var(--comments-color-background-paper) !important;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.comment-text a {
+    color: var(--comments-color-accent);
+    text-decoration: underline;
+}
+
+.comment-text > *:not(:first-child),
+.comment-text blockquote > *:not(:first-child),
+.comment-text ul > *:not(:first-child):not(li),
+.comment-text ol > *:not(:first-child):not(li) {
+    margin-top: 0.5rem;
+}
+
+.comment-text h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.comment-text h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.comment-text h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.comment-text h4 {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.comment-text h5 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.comment-text h6 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.comment-text blockquote {
+    background-color: var(--comments-color-background-paper);
+    padding: 1rem;
+    border-left: solid 3px var(--comments-color-border);
+}
+
+.comment-text ul, .comment-text ol {
+    padding-left: 1rem;
+}
+
+.comment-text ul li {
+    list-style: circle;
+}
+
+.comment-text ol li {
+    list-style: decimal;
+}
+
+.comments-textarea {
+    min-height: 10rem;
+}
+
+/* Override the styles set by Filament for EasyMDE */
+.EasyMDEContainer .editor-toolbar button:before {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    display: none;
+    content: '';
+}
+
+/* EasyMDE buttons */
+.comments .CodeMirror {
+    border-color: var(--comments-color-border);
+}
+
+.comments .CodeMirror-scroll, .CodeMirror{
+    min-height: 10rem !important;
+}
+
+.comments .editor-toolbar {
+    border-color: var(--comments-color-border);
+    padding: 0.35rem;
+}
+
+.comments .editor-toolbar .separator {
+    border-left-color: var(--comments-color-border);
+}
+
+.comments .editor-toolbar button {
+    border: none;
+    transition: background 150ms;
+}
+.comments .editor-toolbar button:hover {
+    background-color: var(--comments-color-reaction);
+}
+
+.comments .editor-toolbar button.active {
+    background-color: var(--comments-color-reaction-hover);
+}
